@@ -36,13 +36,15 @@ from api.schema import (
     EmbeddingsUsage,
     Embedding,
 )
-from api.setting import DEBUG, AWS_REGION
+from api.setting import DEBUG, AWS_REGION, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, DEFAULT_MODEL
 
 logger = logging.getLogger(__name__)
 
 bedrock_runtime = boto3.client(
     service_name="bedrock-runtime",
     region_name=AWS_REGION,
+    aws_access_key_id=AWS_ACCESS_KEY_ID,
+    aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
 )
 
 SUPPORTED_BEDROCK_EMBEDDING_MODELS = {
@@ -201,7 +203,9 @@ class BedrockModel(BaseChatModel):
         error = ""
         # check if model is supported
         if chat_request.model not in self._supported_models.keys():
-            error = f"Unsupported model {chat_request.model}, please use models API to get a list of supported models"
+            # Fallback to default model
+            chat_request.model = DEFAULT_MODEL
+            # error = f"Unsupported model {chat_request.model}, please use models API to get a list of supported models"
 
         # check if tool call is supported
         elif chat_request.tools and not self._is_tool_call_supported(chat_request.model, stream=chat_request.stream):

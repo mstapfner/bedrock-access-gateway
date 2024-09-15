@@ -1,7 +1,5 @@
 import os
 
-DEFAULT_API_KEYS = "bedrock"
-
 API_ROUTE_PREFIX = "/api/v1"
 
 TITLE = "Amazon Bedrock Proxy APIs"
@@ -18,11 +16,16 @@ List of Amazon Bedrock models currently supported:
 - Cohere Embedding
 """
 
-DEBUG = os.environ.get("DEBUG", "false").lower() != "false"
-AWS_REGION = os.environ.get("AWS_REGION", "us-west-2")
+DEBUG = os.environ.get("DEBUG", "true").lower() != "false"
+
+API_KEY = os.environ.get("API_KEY", "398c4df5-2d0a-41b6-b4ba-d5c2704e9965")
 DEFAULT_MODEL = os.environ.get(
-    "DEFAULT_MODEL", "anthropic.claude-3-sonnet-20240229-v1:0"
+    "DEFAULT_MODEL", "anthropic.claude-3-haiku-20240307-v1:0"
 )
 DEFAULT_EMBEDDING_MODEL = os.environ.get(
     "DEFAULT_EMBEDDING_MODEL", "cohere.embed-multilingual-v3"
 )
+
+AWS_REGION = os.environ.get("AWS_REGION", "eu-central-1")
+AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY") 

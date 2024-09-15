@@ -15,6 +15,7 @@ config = {
     "description": DESCRIPTION,
     "summary": SUMMARY,
     "version": VERSION,
+    "docs_url": "/api/v1/docs",  # Set custom docs URL
 }
 
 logging.basicConfig(
